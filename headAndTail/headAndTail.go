@@ -27,13 +27,13 @@ func Parse(req *http.Request) (string, string, error) {
 	return head, tail, nil
 }
 
-func With(req *http.Request) (*http.Request, error) {
+func WithParsed(req *http.Request) (*http.Request, string, string, error) {
 	head, tail, _ := Parse(req)
 	reqWith, _ := Put(req, head, tail)
-	return reqWith, nil
+	return reqWith, head, tail, nil
 }
 
-func Put(req *http.Request, head, tail interface{}) (*http.Request, error) {
+func With(req *http.Request, head, tail interface{}) (*http.Request, error) {
 	ctx := req.Context()
 	ctx = context.WithValue(ctx, "head", head)
 	ctx = context.WithValue(ctx, "tail", tail)
