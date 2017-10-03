@@ -14,7 +14,6 @@ func Parse(req *http.Request) (string, string, error) {
 	default:
 		path = req.URL.String()
 	}
-	//log.Printf(path)
 	if path == "" {
 		return "", "", nil
 	}
