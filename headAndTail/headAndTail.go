@@ -14,6 +14,7 @@ func Parse(req *http.Request) (string, string, error) {
 	default:
 		path = req.URL.String()
 	}
+	//log.Printf(path)
 	if path == "" {
 		return "", "", nil
 	}
@@ -29,7 +30,7 @@ func Parse(req *http.Request) (string, string, error) {
 
 func WithParsed(req *http.Request) (*http.Request, string, string, error) {
 	head, tail, _ := Parse(req)
-	reqWith, _ := Put(req, head, tail)
+	reqWith, _ := With(req, head, tail)
 	return reqWith, head, tail, nil
 }
 
