@@ -6,6 +6,7 @@ import (
 
 	"golang.org/x/oauth2"
 	calendar "google.golang.org/api/calendar/v3"
+	drive "google.golang.org/api/drive/v3"
 	gmail "google.golang.org/api/gmail/v1"
 	sheets "google.golang.org/api/sheets/v4"
 	tasks "google.golang.org/api/tasks/v1"
@@ -13,6 +14,14 @@ import (
 
 func Calendar(ctx context.Context, config *oauth2.Config, token *oauth2.Token) (*calendar.Service, error) {
 	svc, err := calendar.New(config.Client(ctx, token))
+	if err != nil {
+		return nil, fmt.Errorf("Unable to create client. %v", err)
+	}
+	return svc, nil
+}
+
+func Drive(ctx context.Context, config *oauth2.Config, token *oauth2.Token) (*drive.Service, error) {
+	svc, err := drive.New(config.Client(ctx, token))
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create client. %v", err)
 	}
